@@ -97,26 +97,11 @@ function Header() {
 
 function Logo() {
   return (
-    <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
-      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-        <rect width="36" height="36" rx="10" fill="url(#logoGrad)"/>
-        <defs>
-          <linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#1D6AFF"/>
-            <stop offset="1" stopColor="#0A3FA8"/>
-          </linearGradient>
-        </defs>
-        <rect x="9" y="8" width="13" height="16" rx="2" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="1.5"/>
-        <line x1="12" y1="13" x2="19" y2="13" stroke="rgba(255,255,255,0.6)" strokeWidth="1.2" strokeLinecap="round"/>
-        <line x1="12" y1="16" x2="19" y2="16" stroke="rgba(255,255,255,0.6)" strokeWidth="1.2" strokeLinecap="round"/>
-        <line x1="12" y1="19" x2="16" y2="19" stroke="rgba(255,255,255,0.6)" strokeWidth="1.2" strokeLinecap="round"/>
-        <path d="M21 18 L25 12 L27 16 L29 14" stroke="#00C9A7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="29" cy="14" r="2.5" fill="#00C9A7"/>
-      </svg>
-      <span style={{fontFamily:'Sora,sans-serif',fontWeight:700,fontSize:'18px',letterSpacing:'-0.01em'}}>
-        Edital<span style={{color:'#00C9A7'}}>IA</span>
-      </span>
-    </div>
+    <img
+      src="/logo.png"
+      alt="Edital IA"
+      style={{height:'40px',width:'auto'}}
+    />
   );
 }
 
