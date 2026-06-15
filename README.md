@@ -141,3 +141,4 @@ edital-ia/
 ## Licença
 
 Proprietário. Todos os direitos reservados — Licitare Consultoria e Gestão Empresarial Ltda.
+ 
