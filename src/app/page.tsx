@@ -97,36 +97,13 @@ function Header() {
 
 function Logo() {
   return (
-    <div style={{display:'flex',alignItems:'center',gap:'16px'}}>
-      <svg width="72" height="72" viewBox="0 0 52 52" fill="none">
-        <defs>
-          <linearGradient id="docGrad" x1="4" y1="4" x2="48" y2="48" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#4A9EFF"/>
-            <stop offset="1" stopColor="#1D6AFF"/>
-          </linearGradient>
-          <linearGradient id="arrowGrad" x1="24" y1="24" x2="48" y2="48" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#00C9A7"/>
-            <stop offset="1" stopColor="#00E5C0"/>
-          </linearGradient>
-        </defs>
-        <path d="M8 6 L34 6 L44 16 L44 48 L8 48 Z" fill="none" stroke="url(#docGrad)" strokeWidth="2.5" strokeLinejoin="round"/>
-        <path d="M34 6 L34 16 L44 16" fill="none" stroke="url(#docGrad)" strokeWidth="2.5" strokeLinejoin="round"/>
-        <line x1="14" y1="22" x2="38" y2="22" stroke="#4A9EFF" strokeWidth="2" strokeLinecap="round"/>
-        <line x1="14" y1="27" x2="38" y2="27" stroke="#4A9EFF" strokeWidth="2" strokeLinecap="round"/>
-        <line x1="14" y1="32" x2="28" y2="32" stroke="#4A9EFF" strokeWidth="2" strokeLinecap="round"/>
-        <rect x="14" y="38" width="3.5" height="5" rx="1" fill="#1D6AFF"/>
-        <rect x="20" y="35" width="3.5" height="8" rx="1" fill="#1D6AFF"/>
-        <polyline points="26,42 32,34 38,38 44,28" stroke="url(#arrowGrad)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-        <circle cx="26" cy="42" r="2" fill="#00C9A7"/>
-        <circle cx="32" cy="34" r="2" fill="#00C9A7"/>
-        <circle cx="38" cy="38" r="2" fill="#00C9A7"/>
-        <path d="M40 25 L44 28 L41 31" stroke="#00C9A7" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-      </svg>
-      <span style={{fontFamily:'Sora,sans-serif',fontWeight:700,fontSize:'30px',letterSpacing:'-0.02em',color:'#fff'}}>
-        Edital<span style={{color:'#00C9A7'}}>IA</span>
-      </span>
-    </div>
+    <img
+      src="/logo.png"
+      alt="Edital IA"
+      style={{height:'64px',width:'auto'}}
+    />
   );
+}
 }
 
 function Hero() {
