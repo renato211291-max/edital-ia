@@ -97,11 +97,12 @@ function Header() {
 
 function Logo() {
   return (
-    <img
-      src="/logo.png"
-      alt="Edital IA"
-      style={{height:'60px',width:'auto'}}
-    />
+    <div style={{display:'flex',alignItems:'center',gap:'12px'}}>
+      <img src="/logo.png" alt="ícone Edital IA" style={{height:'48px',width:'auto'}} />
+      <span style={{fontFamily:'Sora,sans-serif',fontWeight:700,fontSize:'22px',letterSpacing:'-0.01em',color:'#fff'}}>
+        Edital<span style={{color:'#00C9A7'}}>IA</span>
+      </span>
+    </div>
   );
 }
 
