@@ -97,37 +97,32 @@ function Header() {
 
 function Logo() {
   return (
-    <div style={{display:'flex',alignItems:'center',gap:'14px'}}>
-      <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-        <rect width="52" height="52" rx="12" fill="url(#bgGrad)"/>
+    <div style={{display:'flex',alignItems:'center',gap:'16px'}}>
+      <svg width="72" height="72" viewBox="0 0 52 52" fill="none">
         <defs>
-          <linearGradient id="bgGrad" x1="0" y1="0" x2="52" y2="52" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#1a3a6b"/>
-            <stop offset="1" stopColor="#0d1f3c"/>
-          </linearGradient>
-        </defs>
-        {/* Documento */}
-        <rect x="13" y="8" width="22" height="28" rx="3" fill="none" stroke="url(#docGrad)" strokeWidth="2"/>
-        <defs>
-          <linearGradient id="docGrad" x1="13" y1="8" x2="35" y2="36" gradientUnits="userSpaceOnUse">
+          <linearGradient id="docGrad" x1="4" y1="4" x2="48" y2="48" gradientUnits="userSpaceOnUse">
             <stop stopColor="#4A9EFF"/>
             <stop offset="1" stopColor="#1D6AFF"/>
           </linearGradient>
+          <linearGradient id="arrowGrad" x1="24" y1="24" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#00C9A7"/>
+            <stop offset="1" stopColor="#00E5C0"/>
+          </linearGradient>
         </defs>
-        {/* Linhas do documento */}
-        <line x1="18" y1="16" x2="30" y2="16" stroke="#4A9EFF" strokeWidth="1.8" strokeLinecap="round"/>
-        <line x1="18" y1="20" x2="30" y2="20" stroke="#4A9EFF" strokeWidth="1.8" strokeLinecap="round"/>
-        <line x1="18" y1="24" x2="26" y2="24" stroke="#4A9EFF" strokeWidth="1.8" strokeLinecap="round"/>
-        {/* Barras gráfico */}
-        <rect x="18" y="29" width="3" height="4" rx="1" fill="#1D6AFF"/>
-        <rect x="23" y="27" width="3" height="6" rx="1" fill="#1D6AFF"/>
-        {/* Seta crescimento */}
-        <path d="M28 34 L34 28 L38 32" stroke="#00C9A7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-        <circle cx="28" cy="34" r="1.5" fill="#00C9A7"/>
-        <circle cx="34" cy="28" r="1.5" fill="#00C9A7"/>
-        <path d="M35 25 L38 28 L35 28" fill="#00C9A7"/>
+        <path d="M8 6 L34 6 L44 16 L44 48 L8 48 Z" fill="none" stroke="url(#docGrad)" strokeWidth="2.5" strokeLinejoin="round"/>
+        <path d="M34 6 L34 16 L44 16" fill="none" stroke="url(#docGrad)" strokeWidth="2.5" strokeLinejoin="round"/>
+        <line x1="14" y1="22" x2="38" y2="22" stroke="#4A9EFF" strokeWidth="2" strokeLinecap="round"/>
+        <line x1="14" y1="27" x2="38" y2="27" stroke="#4A9EFF" strokeWidth="2" strokeLinecap="round"/>
+        <line x1="14" y1="32" x2="28" y2="32" stroke="#4A9EFF" strokeWidth="2" strokeLinecap="round"/>
+        <rect x="14" y="38" width="3.5" height="5" rx="1" fill="#1D6AFF"/>
+        <rect x="20" y="35" width="3.5" height="8" rx="1" fill="#1D6AFF"/>
+        <polyline points="26,42 32,34 38,38 44,28" stroke="url(#arrowGrad)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+        <circle cx="26" cy="42" r="2" fill="#00C9A7"/>
+        <circle cx="32" cy="34" r="2" fill="#00C9A7"/>
+        <circle cx="38" cy="38" r="2" fill="#00C9A7"/>
+        <path d="M40 25 L44 28 L41 31" stroke="#00C9A7" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
       </svg>
-      <span style={{fontFamily:'Sora,sans-serif',fontWeight:700,fontSize:'26px',letterSpacing:'-0.02em',color:'#fff'}}>
+      <span style={{fontFamily:'Sora,sans-serif',fontWeight:700,fontSize:'30px',letterSpacing:'-0.02em',color:'#fff'}}>
         Edital<span style={{color:'#00C9A7'}}>IA</span>
       </span>
     </div>
