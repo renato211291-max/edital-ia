@@ -97,9 +97,37 @@ function Header() {
 
 function Logo() {
   return (
-    <div style={{display:'flex',alignItems:'center',gap:'12px'}}>
-      <img src="/logo.png" alt="ícone Edital IA" style={{height:'48px',width:'auto'}} />
-      <span style={{fontFamily:'Sora,sans-serif',fontWeight:700,fontSize:'22px',letterSpacing:'-0.01em',color:'#fff'}}>
+    <div style={{display:'flex',alignItems:'center',gap:'14px'}}>
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+        <rect width="52" height="52" rx="12" fill="url(#bgGrad)"/>
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#1a3a6b"/>
+            <stop offset="1" stopColor="#0d1f3c"/>
+          </linearGradient>
+        </defs>
+        {/* Documento */}
+        <rect x="13" y="8" width="22" height="28" rx="3" fill="none" stroke="url(#docGrad)" strokeWidth="2"/>
+        <defs>
+          <linearGradient id="docGrad" x1="13" y1="8" x2="35" y2="36" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#4A9EFF"/>
+            <stop offset="1" stopColor="#1D6AFF"/>
+          </linearGradient>
+        </defs>
+        {/* Linhas do documento */}
+        <line x1="18" y1="16" x2="30" y2="16" stroke="#4A9EFF" strokeWidth="1.8" strokeLinecap="round"/>
+        <line x1="18" y1="20" x2="30" y2="20" stroke="#4A9EFF" strokeWidth="1.8" strokeLinecap="round"/>
+        <line x1="18" y1="24" x2="26" y2="24" stroke="#4A9EFF" strokeWidth="1.8" strokeLinecap="round"/>
+        {/* Barras gráfico */}
+        <rect x="18" y="29" width="3" height="4" rx="1" fill="#1D6AFF"/>
+        <rect x="23" y="27" width="3" height="6" rx="1" fill="#1D6AFF"/>
+        {/* Seta crescimento */}
+        <path d="M28 34 L34 28 L38 32" stroke="#00C9A7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+        <circle cx="28" cy="34" r="1.5" fill="#00C9A7"/>
+        <circle cx="34" cy="28" r="1.5" fill="#00C9A7"/>
+        <path d="M35 25 L38 28 L35 28" fill="#00C9A7"/>
+      </svg>
+      <span style={{fontFamily:'Sora,sans-serif',fontWeight:700,fontSize:'26px',letterSpacing:'-0.02em',color:'#fff'}}>
         Edital<span style={{color:'#00C9A7'}}>IA</span>
       </span>
     </div>
