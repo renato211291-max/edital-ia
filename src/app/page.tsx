@@ -100,7 +100,7 @@ function Logo() {
     <img
       src="/logo.png"
       alt="Edital IA"
-      style={{height:'40px',width:'auto'}}
+      style={{height:'60px',width:'auto'}}
     />
   );
 }
