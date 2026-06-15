@@ -104,7 +104,6 @@ function Logo() {
     />
   );
 }
-}
 
 function Hero() {
   return (
