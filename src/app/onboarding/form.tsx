@@ -9,6 +9,7 @@ const initial: OnboardingState = {}
 export default function OnboardingForm() {
   const [state, formAction, pending] = useActionState(createCompanyAction, initial)
   const [cnpj, setCnpj] = useState('')
+  const [accepted, setAccepted] = useState(false)
 
   return (
     <form action={formAction} className="mt-6 space-y-4">
@@ -41,11 +42,38 @@ export default function OnboardingForm() {
         </select>
       </div>
 
+      <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            name="accept_terms"
+            checked={accepted}
+            onChange={(e) => setAccepted(e.target.checked)}
+            className="mt-0.5 h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900"
+          />
+          <span className="text-sm text-slate-600">
+            Li e aceito os{' '}
+            <a href="/termos" target="_blank" rel="noopener noreferrer" className="font-medium text-slate-900 underline">
+              Termos de Uso
+            </a>
+            , a{' '}
+            <a href="/privacidade" target="_blank" rel="noopener noreferrer" className="font-medium text-slate-900 underline">
+              Política de Privacidade
+            </a>{' '}
+            e o{' '}
+            <a href="/contrato" target="_blank" rel="noopener noreferrer" className="font-medium text-slate-900 underline">
+              Contrato de Prestação de Serviços
+            </a>{' '}
+            da Edital IA.
+          </span>
+        </label>
+      </div>
+
       {state.error && <p className="text-sm text-red-600">{state.error}</p>}
 
       <button
         type="submit"
-        disabled={pending}
+        disabled={pending || !accepted}
         className="w-full rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50"
       >
         {pending ? 'Cadastrando...' : 'Criar empresa'}
