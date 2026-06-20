@@ -26,7 +26,7 @@ export default function OnboardingForm() {
           onChange={(e) => setCnpj(formatCnpj(e.target.value))}
           placeholder="00.000.000/0000-00"
           inputMode="numeric"
-          className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
+          className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 bg-white outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
         />
       </div>
 
@@ -35,7 +35,7 @@ export default function OnboardingForm() {
         <select
           name="plan"
           defaultValue="starter"
-          className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
+          className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 bg-white outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
         >
           <option value="starter">Starter — R$ 397/mês</option>
           <option value="pro">Pro — R$ 1.197/mês</option>
@@ -97,7 +97,7 @@ function Field({ label, name, required }: { label: string; name: string; require
       <input
         name={name}
         required={required}
-        className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
+        className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 bg-white outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
       />
     </div>
   )
