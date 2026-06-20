@@ -79,7 +79,7 @@ function Header() {
   }, []);
   return (
     <header style={{position:'fixed',top:0,left:0,right:0,zIndex:100,transition:'all 0.3s',background:scrolled?'rgba(6,13,26,0.85)':'transparent',backdropFilter:scrolled?'blur(20px)':'none',borderBottom:scrolled?'1px solid rgba(255,255,255,0.07)':'none'}}>
-      <div className="section" style={{display:'flex',alignItems:'center',justifyContent:'space-between',height:'68px'}}>
+      <div className="section" style={{display:'flex',alignItems:'center',justifyContent:'space-between',height:'100px'}}>
         <Logo />
         <nav style={{display:'flex',gap:'32px',alignItems:'center'}}>
           {[['#diferenca','Por que somos diferentes'],['#como-funciona','Como funciona'],['#planos','Planos']].map(([h,l]) => (
@@ -100,7 +100,7 @@ function Logo() {
     <img
       src="/logo.png"
       alt="Edital IA"
-      style={{height:'65px',width:'auto'}}
+      style={{height:'140px',width:'auto'}}
     />
   );
 }
