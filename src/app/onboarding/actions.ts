@@ -19,9 +19,35 @@ export async function createCompanyAction(
   const plan = String(formData.get('plan') ?? 'starter')
   const acceptTerms = formData.get('accept_terms') === 'on'
 
+  const areaAtuacao = String(formData.get('area_atuacao') ?? '').trim()
+  const estadosRaw = String(formData.get('estados') ?? '').trim()
+  const cidadesRaw = String(formData.get('cidades') ?? '').trim()
+  const valorLimiteRaw = String(formData.get('valor_limite_execucao') ?? '').trim()
+  const capacidadeOperacional = String(formData.get('capacidade_operacional') ?? '').trim()
+  const cnaesRaw = String(formData.get('cnaes_json') ?? '[]')
+
   if (!razao) return { error: 'Informe a razão social.' }
   if (!isValidCnpj(cnpjRaw)) return { error: 'CNPJ inválido.' }
   if (!acceptTerms) return { error: 'É necessário aceitar os Termos de Uso, a Política de Privacidade e o Contrato para continuar.' }
+
+  let cnaes: unknown = []
+  try {
+    cnaes = JSON.parse(cnaesRaw)
+  } catch {
+    cnaes = []
+  }
+
+  const estados = estadosRaw
+    ? estadosRaw.split(',').map((s) => s.trim().toUpperCase()).filter(Boolean)
+    : []
+
+  const cidades = cidadesRaw
+    ? cidadesRaw.split(',').map((c) => c.trim()).filter(Boolean)
+    : []
+
+  const valorLimite = valorLimiteRaw
+    ? Number(valorLimiteRaw.replace(/\./g, '').replace(',', '.'))
+    : null
 
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -58,6 +84,12 @@ export async function createCompanyAction(
     p_nome_fantasia: fantasia || null,
     p_cnpj: cnpjDigits,
     p_plan: plan,
+    p_cnaes: cnaes,
+    p_area_atuacao: areaAtuacao || null,
+    p_estados: estados,
+    p_cidades: cidades,
+    p_valor_limite_execucao: valorLimite,
+    p_capacidade_operacional: capacidadeOperacional || null,
   })
 
   if (error) {
