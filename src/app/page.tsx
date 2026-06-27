@@ -79,7 +79,7 @@ function Header() {
   }, []);
   return (
     <header style={{position:'fixed',top:0,left:0,right:0,zIndex:100,transition:'all 0.3s',background:scrolled?'rgba(6,13,26,0.85)':'transparent',backdropFilter:scrolled?'blur(20px)':'none',borderBottom:scrolled?'1px solid rgba(255,255,255,0.07)':'none'}}>
-      <div className="section" style={{display:'flex',alignItems:'center',justifyContent:'space-between',height:'100px'}}>
+      <div className="section" style={{display:'flex',alignItems:'center',justifyContent:'space-between',height:'72px'}}>
         <Logo />
         <nav style={{display:'flex',gap:'32px',alignItems:'center'}}>
           {[['#diferenca','Por que somos diferentes'],['#como-funciona','Como funciona'],['#planos','Planos']].map(([h,l]) => (
@@ -100,7 +100,7 @@ function Logo() {
     <img
       src="/logo.png"
       alt="Edital IA"
-      style={{height:'140px',width:'auto'}}
+      style={{height:'56px',width:'auto'}}
     />
   );
 }
@@ -146,16 +146,30 @@ function Hero() {
 function CnpjWidget() {
   const [cnpj, setCnpj] = useState('');
   const [loading, setLoading] = useState(false);
+  const [erro, setErro] = useState<string|null>(null);
   const [result, setResult] = useState<null|{count:number;items:{orgao:string;obj:string;valor:string;prazo:string}[]}>(null);
   function fmt(v:string){const d=v.replace(/\D/g,'').slice(0,14);return d.replace(/^(\d{2})(\d)/,'$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1/$2').replace(/(\d{4})(\d)/,'$1-$2');}
-  function consultar(){
+  async function consultar(){
     if(cnpj.replace(/\D/g,'').length<14)return;
-    setLoading(true);setResult(null);
-    setTimeout(()=>{setLoading(false);setResult({count:43,items:[
-      {orgao:'Prefeitura Municipal',obj:'Aquisição de materiais e prestação de serviços',valor:'R$ 248.000',prazo:'8 dias'},
-      {orgao:'Governo do Estado',obj:'Contratação de empresa especializada',valor:'R$ 1.200.000',prazo:'12 dias'},
-      {orgao:'Órgão Federal',obj:'Registro de preços para fornecimento',valor:'R$ 567.000',prazo:'5 dias'},
-    ]});},1800);
+    setLoading(true);setResult(null);setErro(null);
+    try{
+      const res = await fetch('/api/consulta-cnpj', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ cnpj: cnpj.replace(/\D/g,'') }),
+      });
+      const data = await res.json();
+      if(!res.ok){
+        setErro(data.error || 'Não foi possível consultar este CNPJ agora.');
+        setLoading(false);
+        return;
+      }
+      setResult({ count: data.count, items: data.items });
+    }catch{
+      setErro('Não foi possível consultar este CNPJ agora. Tente novamente.');
+    }finally{
+      setLoading(false);
+    }
   }
   return (
     <div className="glow-card" style={{padding:'2px'}} onMouseMove={e=>{const r=e.currentTarget.getBoundingClientRect();e.currentTarget.style.setProperty('--mx',`${e.clientX-r.left}px`);e.currentTarget.style.setProperty('--my',`${e.clientY-r.top}px`);}}>
@@ -174,6 +188,7 @@ function CnpjWidget() {
             </button>
           </div>
           <p style={{fontSize:'12px',color:'rgba(255,255,255,0.3)',lineHeight:1.5}}>Consultamos o PNCP em tempo real. Sem cadastro, sem cartão.</p>
+          {erro&&<p style={{fontSize:'13px',color:'#FF8A6B',marginTop:'12px'}}>{erro}</p>}
           {loading&&<>
             {[0,1,2].map(i=><div key={i} style={{height:'56px',borderRadius:'10px',background:'rgba(255,255,255,0.04)',marginTop:'12px',animation:'shimmer 1.5s infinite',backgroundImage:'linear-gradient(90deg,rgba(255,255,255,0.02) 0%,rgba(255,255,255,0.06) 50%,rgba(255,255,255,0.02) 100%)',backgroundSize:'200% auto',animationDelay:`${i*200}ms`}}/>)}
             <p style={{textAlign:'center',fontSize:'13px',color:'#7EB8FF',marginTop:'12px'}}>O robô está varrendo o PNCP...</p>
@@ -184,6 +199,7 @@ function CnpjWidget() {
             <div className="counter" style={{fontSize:'3rem',fontWeight:800,fontFamily:'Sora,sans-serif',color:'#00C9A7',lineHeight:1}}>{result.count}</div>
             <div style={{fontSize:'13px',color:'rgba(255,255,255,0.6)',marginTop:'4px'}}>licitações abertas agora para o seu ramo</div>
           </div>
+          {result.items.length===0&&<p style={{fontSize:'13px',color:'rgba(255,255,255,0.5)',textAlign:'center',marginBottom:'16px'}}>Nenhuma oportunidade específica encontrada nos últimos 30 dias, mas continuamos monitorando o PNCP diariamente para o seu perfil.</p>}
           {result.items.map((it,i)=><div key={i} className="glow-card" style={{padding:'12px 14px',marginBottom:'8px'}}>
             <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'4px'}}>
               <span style={{fontSize:'12px',fontWeight:600,color:'#7EB8FF'}}>{it.orgao}</span>
@@ -198,7 +214,7 @@ function CnpjWidget() {
               Criar conta e ver todas <Arrow dark/>
             </a>
           </div>
-          <button onClick={()=>{setResult(null);setCnpj('');}} style={{width:'100%',textAlign:'center',fontSize:'12px',color:'rgba(255,255,255,0.3)',background:'none',border:'none',cursor:'pointer',marginTop:'10px',fontFamily:'Inter,sans-serif'}}>Consultar outro CNPJ</button>
+          <button onClick={()=>{setResult(null);setCnpj('');setErro(null);}} style={{width:'100%',textAlign:'center',fontSize:'12px',color:'rgba(255,255,255,0.3)',background:'none',border:'none',cursor:'pointer',marginTop:'10px',fontFamily:'Inter,sans-serif'}}>Consultar outro CNPJ</button>
         </div>}
       </div>
     </div>
@@ -260,7 +276,6 @@ function TrustBar() {
     </section>
   );
 }
-
 function NotABuscador() {
   return (
     <FadeUp>
