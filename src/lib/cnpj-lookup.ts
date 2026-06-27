@@ -16,16 +16,26 @@ export type CnpjLookupResult = {
  * Retorna null em caso de erro ou CNPJ não encontrado.
  */
 export async function lookupCnpj(cnpjDigits: string): Promise<CnpjLookupResult | null> {
-  if (cnpjDigits.length !== 14) return null
+  if (cnpjDigits.length !== 14) {
+    console.log('[lookupCnpj] CNPJ com tamanho inválido:', cnpjDigits.length)
+    return null
+  }
 
   try {
     const res = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpjDigits}`, {
       cache: 'no-store',
     })
 
-    if (!res.ok) return null
+    console.log('[lookupCnpj] status da resposta:', res.status, res.ok)
+
+    if (!res.ok) {
+      const textoErro = await res.text().catch(() => 'sem corpo')
+      console.log('[lookupCnpj] corpo do erro:', textoErro)
+      return null
+    }
 
     const data = await res.json()
+    console.log('[lookupCnpj] dados recebidos, uf:', data.uf, 'razao_social:', data.razao_social)
 
     const cnaes: CnaeInfo[] = []
 
@@ -41,14 +51,19 @@ export async function lookupCnpj(cnpjDigits: string): Promise<CnpjLookupResult |
       }
     }
 
-    return {
+    const resultado = {
       razaoSocial: data.razao_social ?? '',
       nomeFantasia: data.nome_fantasia || null,
       cnaes,
       uf: data.uf ?? null,
       cidade: data.municipio ?? null,
     }
-  } catch {
+
+    console.log('[lookupCnpj] resultado final:', JSON.stringify(resultado))
+
+    return resultado
+  } catch (err) {
+    console.log('[lookupCnpj] EXCEÇÃO capturada:', err instanceof Error ? err.message : String(err))
     return null
   }
 }
