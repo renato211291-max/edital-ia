@@ -14,7 +14,10 @@ export type ConsultaPncpResult = {
   categoriaLabel: string
 }
 
-const PNCP_BASE = 'https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao'
+// /contratacoes/proposta retorna editais cujo prazo de proposta ainda
+// está em aberto na data de hoje — diferente de /contratacoes/publicacao,
+// que filtra por data de publicação e pode incluir editais já encerrados.
+const PNCP_BASE = 'https://pncp.gov.br/api/consulta/v1/contratacoes/proposta'
 
 // Códigos de modalidade mais comuns: Pregão Eletrônico (6) e Dispensa (8).
 // Cobrir essas duas cobre a grande maioria dos editais abertos no portal.
@@ -26,12 +29,8 @@ function hojeMaisDias(dias: number): string {
   return data.toISOString().slice(0, 10).replace(/-/g, '')
 }
 
-function hoje(): string {
-  return new Date().toISOString().slice(0, 10).replace(/-/g, '')
-}
-
 /**
- * Consulta o PNCP por editais publicados nos últimos 30 dias para a UF
+ * Consulta o PNCP por editais com prazo de proposta ainda aberto na UF
  * informada, e filtra localmente os resultados aderentes à categoria
  * do CNAE do cliente.
  *
@@ -44,8 +43,10 @@ export async function consultarOportunidades(
   descricaoCnae: string
 ): Promise<ConsultaPncpResult> {
   const config = categorizarCnae(descricaoCnae)
-  const dataInicial = hojeMaisDias(-30)
-  const dataFinal = hoje()
+  // dataFinal aqui representa "até quando aceitamos olhar prazos de
+  // encerramento" — usamos uma janela futura ampla (180 dias) para
+  // capturar tanto editais com prazo próximo quanto mais distante.
+  const dataFinal = hojeMaisDias(180)
 
   const todosResultados: OportunidadeEdital[] = []
 
@@ -53,10 +54,10 @@ export async function consultarOportunidades(
     let pagina = 1
     let totalPaginas = 1
 
-    // Limitamos a no máximo 3 páginas por modalidade para manter a
-    // resposta do widget rápida (evita esperar dezenas de páginas).
-    while (pagina <= 3 && pagina <= totalPaginas) {
-      const url = `${PNCP_BASE}?dataInicial=${dataInicial}&dataFinal=${dataFinal}&codigoModalidadeContratacao=${modalidade}&uf=${uf}&pagina=${pagina}`
+    // Limitamos a no máximo 5 páginas por modalidade para manter a
+    // resposta do widget rápida.
+    while (pagina <= 5 && pagina <= totalPaginas) {
+      const url = `${PNCP_BASE}?dataFinal=${dataFinal}&codigoModalidadeContratacao=${modalidade}&uf=${uf}&pagina=${pagina}`
 
       try {
         const res = await fetch(url, {

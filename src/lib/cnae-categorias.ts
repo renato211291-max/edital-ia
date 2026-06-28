@@ -31,6 +31,11 @@ const CATEGORIAS: CategoriaConfig[] = [
       'construção', 'reforma', 'obra', 'engenharia', 'pavimentação',
       'esquadria', 'alumínio', 'vidro', 'edificação', 'manutenção predial',
       'instalação elétrica', 'instalação hidráulica', 'pintura',
+      'manutenção de imóve', 'manutenção de pont', 'recapeamento',
+      'drenagem', 'calçamento', 'meio-fio', 'telhado', 'cobertura',
+      'serralheria', 'metalúrgic', 'estrutura metálica', 'ponte',
+      'pontilhão', 'viga', 'material de construção', 'material elétrico',
+      'material hidráulico', 'cimento', 'tijolo', 'concreto',
     ],
   },
   {
