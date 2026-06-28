@@ -14,28 +14,28 @@ export type CnpjLookupResult = {
 /**
  * Consulta dados públicos de um CNPJ via BrasilAPI (gratuita, sem necessidade de token).
  * Retorna null em caso de erro ou CNPJ não encontrado.
+ *
+ * Importante: a BrasilAPI bloqueia (403) requisições sem um User-Agent que
+ * pareça vir de um navegador real, quando a chamada parte de datacenters
+ * de cloud (como as funções serverless do Vercel). Por isso enviamos um
+ * User-Agent explícito de navegador.
  */
 export async function lookupCnpj(cnpjDigits: string): Promise<CnpjLookupResult | null> {
-  if (cnpjDigits.length !== 14) {
-    console.log('[lookupCnpj] CNPJ com tamanho inválido:', cnpjDigits.length)
-    return null
-  }
+  if (cnpjDigits.length !== 14) return null
 
   try {
     const res = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpjDigits}`, {
       cache: 'no-store',
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        Accept: 'application/json',
+      },
     })
 
-    console.log('[lookupCnpj] status da resposta:', res.status, res.ok)
-
-    if (!res.ok) {
-      const textoErro = await res.text().catch(() => 'sem corpo')
-      console.log('[lookupCnpj] corpo do erro:', textoErro)
-      return null
-    }
+    if (!res.ok) return null
 
     const data = await res.json()
-    console.log('[lookupCnpj] dados recebidos, uf:', data.uf, 'razao_social:', data.razao_social)
 
     const cnaes: CnaeInfo[] = []
 
@@ -51,19 +51,14 @@ export async function lookupCnpj(cnpjDigits: string): Promise<CnpjLookupResult |
       }
     }
 
-    const resultado = {
+    return {
       razaoSocial: data.razao_social ?? '',
       nomeFantasia: data.nome_fantasia || null,
       cnaes,
       uf: data.uf ?? null,
       cidade: data.municipio ?? null,
     }
-
-    console.log('[lookupCnpj] resultado final:', JSON.stringify(resultado))
-
-    return resultado
-  } catch (err) {
-    console.log('[lookupCnpj] EXCEÇÃO capturada:', err instanceof Error ? err.message : String(err))
+  } catch {
     return null
   }
 }

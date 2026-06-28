@@ -100,7 +100,7 @@ function Logo() {
     <img
       src="/logo.png"
       alt="Edital IA"
-      style={{height:'56px',width:'auto'}}
+      style={{height:'105px',width:'auto'}}
     />
   );
 }
@@ -190,7 +190,7 @@ function CnpjWidget() {
           <p style={{fontSize:'12px',color:'rgba(255,255,255,0.3)',lineHeight:1.5}}>Consultamos o PNCP em tempo real. Sem cadastro, sem cartão.</p>
           {erro&&<p style={{fontSize:'13px',color:'#FF8A6B',marginTop:'12px'}}>{erro}</p>}
           {loading&&<>
-            {[0,1,2].map(i=><div key={i} style={{height:'56px',borderRadius:'10px',background:'rgba(255,255,255,0.04)',marginTop:'12px',animation:'shimmer 1.5s infinite',backgroundImage:'linear-gradient(90deg,rgba(255,255,255,0.02) 0%,rgba(255,255,255,0.06) 50%,rgba(255,255,255,0.02) 100%)',backgroundSize:'200% auto',animationDelay:`${i*200}ms`}}/>)}
+            {[0,1,2].map(i=><div key={i} style={{height:'105px',borderRadius:'10px',background:'rgba(255,255,255,0.04)',marginTop:'12px',animation:'shimmer 1.5s infinite',backgroundImage:'linear-gradient(90deg,rgba(255,255,255,0.02) 0%,rgba(255,255,255,0.06) 50%,rgba(255,255,255,0.02) 100%)',backgroundSize:'200% auto',animationDelay:`${i*200}ms`}}/>)}
             <p style={{textAlign:'center',fontSize:'13px',color:'#7EB8FF',marginTop:'12px'}}>O robô está varrendo o PNCP...</p>
           </>}
         </>}
