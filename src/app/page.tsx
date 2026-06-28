@@ -200,12 +200,12 @@ function CnpjWidget() {
             <div style={{fontSize:'13px',color:'rgba(255,255,255,0.6)',marginTop:'4px'}}>licitações abertas agora para o seu ramo</div>
           </div>
           {result.items.length===0&&<p style={{fontSize:'13px',color:'rgba(255,255,255,0.5)',textAlign:'center',marginBottom:'16px'}}>Nenhuma oportunidade específica encontrada nos últimos 30 dias, mas continuamos monitorando o PNCP diariamente para o seu perfil.</p>}
-          {result.items.map((it,i)=><div key={i} className="glow-card" style={{padding:'12px 14px',marginBottom:'8px'}}>
-            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'4px'}}>
-              <span style={{fontSize:'12px',fontWeight:600,color:'#7EB8FF'}}>{it.orgao}</span>
-              <span style={{fontSize:'11px',background:'rgba(200,75,49,0.2)',color:'#FF8A6B',padding:'3px 8px',borderRadius:'100px'}}>{it.prazo}</span>
+          {result.items.map((it,i)=><div key={i} className="glow-card" style={{padding:'12px 14px',marginBottom:'8px',maxWidth:'100%',overflow:'hidden'}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'4px',gap:'8px'}}>
+              <span style={{fontSize:'12px',fontWeight:600,color:'#7EB8FF',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{it.orgao}</span>
+              <span style={{fontSize:'11px',background:'rgba(200,75,49,0.2)',color:'#FF8A6B',padding:'3px 8px',borderRadius:'100px',flexShrink:0,whiteSpace:'nowrap'}}>{it.prazo}</span>
             </div>
-            <div style={{fontSize:'13px',color:'rgba(255,255,255,0.7)',marginBottom:'2px',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{it.obj}</div>
+            <div style={{fontSize:'13px',color:'rgba(255,255,255,0.7)',marginBottom:'2px',display:'-webkit-box',WebkitLineClamp:2,WebkitBoxOrient:'vertical',overflow:'hidden'}}>{it.obj}</div>
             <div style={{fontSize:'14px',fontWeight:600,color:'#fff'}}>{it.valor}</div>
           </div>)}
           <div style={{background:'linear-gradient(135deg,rgba(29,106,255,0.15),rgba(29,106,255,0.05))',border:'1px solid rgba(29,106,255,0.2)',borderRadius:'12px',padding:'16px',marginTop:'4px'}}>
