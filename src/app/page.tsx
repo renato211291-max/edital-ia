@@ -38,7 +38,7 @@ export default function HomePage() {
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
         .faq-answer.open { max-height: 200px; }
         .counter { font-variant-numeric: tabular-nums; }
-        @media (max-width: 768px) { h1 { font-size: 2rem !important; } .hero-grid { grid-template-columns: 1fr !important; } .plans-grid { grid-template-columns: 1fr !important; } .value-grid { grid-template-columns: 1fr !important; } }
+        @media (max-width: 768px) { h1 { font-size: 2rem !important; } .hero-grid { grid-template-columns: 1fr !important; } .plans-grid { grid-template-columns: 1fr !important; } .value-grid { grid-template-columns: 1fr !important; } .steps-grid { grid-template-columns: 1fr !important; } nav.main-nav { display: none !important; } }
       `}</style>
       <BgMesh />
       <Header />
@@ -81,7 +81,7 @@ function Header() {
     <header style={{position:'fixed',top:0,left:0,right:0,zIndex:100,transition:'all 0.3s',background:scrolled?'rgba(6,13,26,0.85)':'transparent',backdropFilter:scrolled?'blur(20px)':'none',borderBottom:scrolled?'1px solid rgba(255,255,255,0.07)':'none'}}>
       <div className="section" style={{display:'flex',alignItems:'center',justifyContent:'space-between',height:'72px'}}>
         <Logo />
-        <nav style={{display:'flex',gap:'32px',alignItems:'center'}}>
+        <nav className="main-nav" style={{display:'flex',gap:'32px',alignItems:'center'}}>
           {[['#diferenca','Por que somos diferentes'],['#como-funciona','Como funciona'],['#planos','Planos']].map(([h,l]) => (
             <a key={h} href={h} style={{fontSize:'14px',color:'rgba(255,255,255,0.65)',textDecoration:'none',transition:'color 0.2s',fontFamily:'Inter,sans-serif'}} onMouseOver={e=>(e.currentTarget.style.color='#fff')} onMouseOut={e=>(e.currentTarget.style.color='rgba(255,255,255,0.65)')}>{l}</a>
           ))}
@@ -335,7 +335,7 @@ function ComoFunciona() {
           <div className="kicker">Como funciona</div>
           <h2 style={{fontFamily:'Sora,sans-serif',fontWeight:800,fontSize:'2.6rem',letterSpacing:'-0.02em',marginBottom:'16px',maxWidth:'600px',lineHeight:1.1}}>O robô trabalha. Você decide. A gente executa.</h2>
           <p style={{fontSize:'16px',color:'rgba(255,255,255,0.55)',maxWidth:'540px',marginBottom:'56px',lineHeight:1.75}}>Três passos simples — a tecnologia e a equipe fazem o trabalho pesado enquanto você foca no negócio.</p>
-          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'16px'}}>
+          <div className="steps-grid" style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'16px'}}>
             {steps.map((s,i)=>(
               <div key={s.n} className="glow-card" style={{padding:'32px',position:'relative'}} onMouseMove={e=>{const r=e.currentTarget.getBoundingClientRect();e.currentTarget.style.setProperty('--mx',`${e.clientX-r.left}px`);e.currentTarget.style.setProperty('--my',`${e.clientY-r.top}px`);}}>
                 <div style={{fontSize:'3.5rem',fontWeight:800,fontFamily:'Sora,sans-serif',color:'rgba(255,255,255,0.06)',marginBottom:'16px',lineHeight:1}}>{s.n}</div>
