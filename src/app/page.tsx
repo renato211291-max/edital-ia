@@ -38,7 +38,7 @@ export default function HomePage() {
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
         .faq-answer.open { max-height: 200px; }
         .counter { font-variant-numeric: tabular-nums; }
-        @media (max-width: 768px) { h1 { font-size: 2rem !important; } .hero-grid { grid-template-columns: 1fr !important; } .plans-grid { grid-template-columns: 1fr !important; } .value-grid { grid-template-columns: 1fr !important; } .steps-grid { grid-template-columns: 1fr !important; } nav.main-nav { display: none !important; } }
+        @media (max-width: 768px) { h1 { font-size: 2rem !important; } .hero-grid { grid-template-columns: 1fr !important; } .plans-grid { grid-template-columns: 1fr !important; } .value-grid { grid-template-columns: 1fr !important; } .steps-grid { grid-template-columns: 1fr !important; } .compare-grid { grid-template-columns: 1fr !important; } .stats-grid { grid-template-columns: 1fr 1fr !important; } .licitare-grid { grid-template-columns: 1fr !important; padding: 32px !important; } nav.main-nav { display: none !important; } .header-entrar { display: none !important; } .site-logo { height: 44px !important; } }
       `}</style>
       <BgMesh />
       <Header />
@@ -87,8 +87,8 @@ function Header() {
           ))}
         </nav>
         <div style={{display:'flex',gap:'12px',alignItems:'center'}}>
-          <a href="/login" style={{fontSize:'14px',color:'rgba(255,255,255,0.6)',textDecoration:'none',fontFamily:'Inter,sans-serif'}}>Entrar</a>
-          <a href="#consulta" className="btn-primary" style={{padding:'10px 20px',fontSize:'14px'}}>Consultar grátis</a>
+          <a href="/login" className="header-entrar" style={{fontSize:'14px',color:'rgba(255,255,255,0.6)',textDecoration:'none',fontFamily:'Inter,sans-serif'}}>Entrar</a>
+          <a href="#consulta" className="btn-primary header-cta" style={{padding:'10px 20px',fontSize:'14px'}}>Consultar grátis</a>
         </div>
       </div>
     </header>
@@ -100,6 +100,7 @@ function Logo() {
     <img
       src="/logo.png"
       alt="Edital IA"
+      className="site-logo"
       style={{height:'105px',width:'auto'}}
     />
   );
@@ -265,7 +266,7 @@ function TrustBar() {
   },[]);
   return (
     <section ref={ref} style={{borderTop:'1px solid var(--border)',borderBottom:'1px solid var(--border)',background:'rgba(255,255,255,0.01)',position:'relative',zIndex:1}}>
-      <div className="section" style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'1px',background:'var(--border)'}}>
+      <div className="section stats-grid" style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'1px',background:'var(--border)'}}>
         {stats.map((s,i)=>(
           <div key={s.l} style={{padding:'28px 20px',textAlign:'center',background:'var(--bg)'}}>
             <div style={{fontFamily:'Sora,sans-serif',fontSize:'1.8rem',fontWeight:800,color:'#7EB8FF',marginBottom:'6px'}}>{s.v}</div>
@@ -276,6 +277,7 @@ function TrustBar() {
     </section>
   );
 }
+
 function NotABuscador() {
   return (
     <FadeUp>
@@ -292,7 +294,7 @@ function NotABuscador() {
               <p style={{fontSize:'16px',color:'rgba(255,255,255,0.6)',maxWidth:'600px',lineHeight:1.75,marginBottom:'48px'}}>
                 Buscadores te entregam uma lista gigante e te abandonam — você lê tudo, entende tudo, corre atrás de tudo. O Edital IA é o contrário.
               </p>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'16px'}}>
+              <div className="compare-grid" style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'16px'}}>
                 <div className="glow-card" style={{padding:'28px',background:'rgba(255,60,60,0.04)',borderColor:'rgba(255,60,60,0.15)'}}>
                   <div style={{fontSize:'13px',fontWeight:700,color:'#FF8A6B',marginBottom:'20px',display:'flex',alignItems:'center',gap:'8px'}}>
                     <span style={{fontSize:'18px'}}>✕</span> Buscador comum
@@ -473,7 +475,7 @@ function LicitareCTA() {
     <FadeUp>
       <section id="licitare" style={{padding:'80px 0',position:'relative',zIndex:1}}>
         <div className="section">
-          <div style={{background:'linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))',border:'1px solid rgba(255,255,255,0.1)',borderRadius:'24px',padding:'56px',display:'grid',gridTemplateColumns:'1fr auto',gap:'40px',alignItems:'center',flexWrap:'wrap',position:'relative',overflow:'hidden'}}>
+          <div className="licitare-grid" style={{background:'linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))',border:'1px solid rgba(255,255,255,0.1)',borderRadius:'24px',padding:'56px',display:'grid',gridTemplateColumns:'1fr auto',gap:'40px',alignItems:'center',flexWrap:'wrap',position:'relative',overflow:'hidden'}}>
             <div style={{position:'absolute',top:0,left:0,width:'200px',height:'200px',background:'radial-gradient(circle,rgba(255,255,255,0.03),transparent 70%)',pointerEvents:'none'}}/>
             <div>
               <div style={{fontSize:'11px',fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',color:'rgba(255,255,255,0.4)',marginBottom:'12px'}}>Precisa de algo além da plataforma?</div>
